@@ -1,0 +1,1812 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCS Shop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Pyidaungsu', 'Myanmar3', sans-serif;
+}
+
+body {
+    background: #ffffff; /* အဖြူရောင်နောက်ခံ */
+    color: #333; /* စာသားအရောင်ပြောင်း */
+    padding-bottom: 70px;
+    min-height: 100vh;
+}
+
+/* Header Styles */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    background: rgba(255, 255, 255, 0.95); /* အဖြူရောင် */
+    color: #333; /* စာသားအရောင်ပြောင်း */
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* အနုပါးလေး */
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #8e44ad, #9b59b6); /* ခရမ်းရောင်ဂရေဒီယင့် */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 1px 5px rgba(142, 68, 173, 0.3);
+}
+
+.logo-icon {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    border-radius: 50%;
+}
+
+.mail-btn {
+    background: linear-gradient(135deg, #8e44ad, #9b59b6); /* ခရမ်းရောင်ဂရေဒီယင့် */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 2px 8px rgba(142, 68, 173, 0.4);
+    transition: all 0.3s ease;
+}
+
+.mail-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(142, 68, 173, 0.5);
+}
+
+/* Main Content Styles */
+.container {
+    max-width: 100%;
+    margin: 15px auto;
+    padding: 0 15px;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333; /* စာသားအရောင်ပြောင်း */
+    font-size: 22px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(135deg, #8e44ad, #9b59b6); /* ခရမ်းရောင်ဂရေဒီယင့် */
+    border-radius: 3px;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.product-card {
+    background: #f8f9fa; /* အလင်းရောင် နောက်ခံ */
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* အနုပါးလေး */
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+    border: 1px solid #e0e0e0;
+    aspect-ratio: 1 / 1.1;
+    cursor: pointer;
+    position: relative;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    border-color: #9b59b6; /* ခရမ်းရောင် */
+}
+
+.product-price {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: linear-gradient(135deg, #8e44ad, #9b59b6); /* ခရမ်းရောင်ဂရေဒီယင့် */
+    color: white;
+    padding: 3px 8px;
+    border-radius: 15px;
+    font-size: 11px;
+    font-weight: bold;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    z-index: 2;
+}
+
+.product-image {
+    width: 100%;
+    height: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background: #fff;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.product-card:hover .product-image img {
+    transform: scale(1.06);
+}
+
+.product-info {
+    height: 30%;
+    padding: 6px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.9);
+    flex-direction: column;
+}
+
+.product-title {
+    font-size: 13px;
+    color: #333; /* စာသားအရောင်ပြောင်း */
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+
+.product-subtitle {
+    font-size: 11px;
+    color: #666; /* စာသားအရောင်ပြောင်း */
+}
+
+/* Package Selection Screen Styles */
+.package-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #ffffff; /* အဖြူရောင် */
+    z-index: 1000;
+    display: none;
+    flex-direction: column;
+    padding: 15px;
+    overflow-y: auto;
+}
+
+.package-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.package-title {
+    font-size: 18px;
+    color: #333; /* စာသားအရောင်ပြောင်း */
+}
+
+.back-btn {
+    background: linear-gradient(135deg, #8e44ad, #9b59b6); /* ခရမ်းရောင်ဂရေဒီယင့် */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 2px 8px rgba(142, 68, 173, 0.4);
+}
+
+.packages-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.package-card {
+    background: #f8f9fa; /* အလင်းရောင် နောက်ခံ */
+    border-radius: 12px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+}
+
+.package-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    border-color: #9b59b6; /* ခရမ်းရောင် */
+}
+
+.package-price {
+    font-size: 16px;
+    font-weight: bold;
+    color: #8e44ad; /* ခရမ်းရောင် */
+    margin-bottom: 6px;
+}
+
+.package-desc {
+    font-size: 12px;
+    color: #666; /* စာသားအရောင်ပြောင်း */
+}
+
+/* Order Form Screen Styles */
+.order-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #ffffff; /* အဖြူရောင် */
+    z-index: 2000;
+    display: none;
+    flex-direction: column;
+    padding: 15px;
+    overflow-y: auto;
+    align-items: center;
+    justify-content: center;
+}
+
+.order-content {
+    width: 100%;
+    max-width: 500px;
+    background: #f8f9fa; /* အလင်းရောင် နောက်ခံ */
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    border: 1px solid #e0e0e0;
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #e0e0e0;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.order-title {
+    font-size: 18px;
+    color: #333; /* စာသားအရောင်ပြောင်း */
+}
+
+.form-container {
+    padding: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: #333; /* စာသားအရောင်ပြောင်း */
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background: #fff;
+    color: #333; /* စာသားအရောင်ပြောင်း */
+    font-size: 13px;
+    transition: all 0.3s ease;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #9b59b6; /* ခရမ်းရောင် */
+    box-shadow: 0 0 0 2px rgba(155, 89, 182, 0.3);
+}
+
+.file-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border: 2px dashed #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    background: #fff;
+}
+
+.file-upload:hover {
+    border-color: #9b59b6; /* ခရမ်းရောင် */
+}
+
+.upload-icon {
+    font-size: 30px;
+    color: #9b59b6; /* ခရမ်းရောင် */
+    margin-bottom: 10px;
+}
+
+.upload-text {
+    color: #666; /* စာသားအရောင်ပြောင်း */
+    margin-bottom: 8px;
+    font-size: 13px;
+}
+
+.submit-btn {
+    background: linear-gradient(135deg, #8e44ad, #9b59b6); /* ခရမ်းရောင်ဂရေဒီယင့် */
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    box-shadow: 0 2px 8px rgba(142, 68, 173, 0.4);
+    transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(142, 68, 173, 0.5);
+}
+
+.submit-btn:disabled {
+    background: #bdc3c7;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Loading Animation */
+.loading {
+    display: none;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.loading-spinner {
+    border: 3px solid rgba(155, 89, 182, 0.3);
+    border-radius: 50%;
+    border-top: 3px solid #9b59b6; /* ခရမ်းရောင် */
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 10px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Success Message */
+.success-message {
+    display: none;
+    text-align: center;
+    background: none;
+    border: none;
+    padding: 0;
+    margin-top: 10px;
+    animation: fadeIn 0.5s ease;
+}
+
+.success-icon {
+    font-size: 22px;
+    color: #4CAF50;
+    margin-bottom: 5px;
+}
+
+.success-message h2 {
+    font-size: 15px;
+    color: #4CAF50;
+    margin: 0;
+}
+
+/* Telegram Link */
+.telegram-link {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: #0088cc;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.telegram-link:hover {
+    text-decoration: underline;
+}
+
+/* Bottom Navigation */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    display: flex;
+    justify-content: space-around;
+    padding: 12px 0;
+    box-shadow: 0 -3px 15px rgba(0,0,0,0.1);
+    z-index: 100;
+    border-top: 1px solid #e0e0e0;
+    backdrop-filter: blur(10px);
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #888;
+    font-size: 11px;
+    width: 25%;
+    transition: all 0.3s ease;
+}
+
+.nav-item.active {
+    color: #8e44ad; /* ခရမ်းရောင် */
+    transform: translateY(-3px);
+}
+
+.nav-icon {
+    font-size: 18px;
+    margin-bottom: 4px;
+    transition: all 0.3s ease;
+}
+
+.nav-item.active .nav-icon {
+    transform: scale(1.1);
+    text-shadow: 0 0 10px rgba(142, 68, 173, 0.7);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Payment Bar Styles */
+.payment-bar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px 15px;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 13px;
+    flex-wrap: wrap;
+    gap: 10px;
+    color: #333;
+}
+
+.payment-method {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(142, 68, 173, 0.1);
+    padding: 8px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(142, 68, 173, 0.3);
+    color: #333;
+}
+
+.payment-method i {
+    color: #8e44ad; /* ခရမ်းရောင် */
+}
+
+/* Banner Styles */
+.banner-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 15px auto;
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.banner-slide {
+    width: 100%;
+    position: absolute;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    text-align: center;
+}
+
+.banner-slide img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+
+.banner-slide.active {
+    opacity: 1;
+    position: relative;
+}
+
+/* FAQ Styles */
+.faq-item {
+    margin-bottom: 20px;
+    background: rgba(248, 249, 250, 0.9);
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 4px solid #8e44ad; /* ခရမ်းရောင် */
+}
+
+.faq-item h3 {
+    color: #8e44ad; /* ခရမ်းရောင် */
+    margin-bottom: 10px;
+}
+
+.faq-item p {
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Authentication Overlay */
+#authOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333;
+}
+
+#authOverlay > div {
+    background: #f8f9fa;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    border: 1px solid #e0e0e0;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+}
+
+#authOverlay input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background: #fff;
+    color: #333;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+#authOverlay button {
+    background: linear-gradient(135deg, #8e44ad, #9b59b6);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    width: 100%;
+    box-shadow: 0 2px 8px rgba(142, 68, 173, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .products-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+    }
+    
+    .packages-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .packages-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+
+    .product-image {
+        height: 120px;
+    }
+    
+    .header {
+        padding: 10px 15px;
+    }
+    
+    .logo {
+        font-size: 18px;
+    }
+    
+    .logo-icon {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .mail-btn {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+    
+    .section-title {
+        font-size: 20px;
+    }
+    
+    .product-title {
+        font-size: 12px;
+    }
+    
+    .package-title, .order-title {
+        font-size: 16px;
+    }
+    
+    .package-price {
+        font-size: 15px;
+    }
+    
+    .form-container {
+        padding: 15px;
+    }
+    
+    .form-input {
+        padding: 8px;
+        font-size: 12px;
+    }
+    
+    .file-upload {
+        padding: 15px;
+    }
+    
+    .upload-icon {
+        font-size: 24px;
+    }
+    
+    .upload-text {
+        font-size: 12px;
+    }
+    
+    .submit-btn {
+        padding: 10px 20px;
+        font-size: 13px;
+    }
+    
+    .payment-bar {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .payment-method {
+        width: 100%;
+        justify-content: center;
+    }
+}
+</style>
+</head>
+<body>
+<!-- Card and V-Code Authentication System -->
+<div id="authOverlay" style="position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg, #0a0a0a, #1a1a1a);z-index:10000;display:flex;justify-content:center;align-items:center;color:#fff;">
+  <div style="background:linear-gradient(145deg, #1e1e1e, #2a2a2a);padding:30px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.8);border:1px solid #333;width:90%;max-width:400px;text-align:center;">
+    <div style="margin-bottom:20px;">
+      <img src="https://drive.google.com/thumbnail?id=1pSEEw_Y6ReVmX3tC4D9DyPeudgoC1JWF&sz=w1000" alt="King Icon" style="width:50px;height:50px;object-fit:contain;border-radius:50%;margin:0 auto;">
+      <h2 style="margin:10px 0;color:#fff;">SCR Shop</h2>
+      <p style="color:#ccc;font-size:14px;">ကျေးဇူးပြု၍ ကတ်နံပါတ်နှင့် V-Code ထည့်ပါ</p>
+    </div>
+    
+    <div style="margin-bottom:15px;text-align:left;">
+      <label style="display:block;margin-bottom:5px;color:#fff;font-size:14px;">ကတ်နံပါတ်</label>
+      <input type="text" id="cardInput" placeholder="ကတ်နံပါတ်ထည့်ပါ" style="width:100%;padding:12px;border-radius:8px;border:1px solid #444;background:#2a2a2a;color:#fff;font-size:14px;margin-bottom:15px;">
+    </div>
+    
+    <div style="margin-bottom:20px;text-align:left;">
+      <label style="display:block;margin-bottom:5px;color:#fff;font-size:14px;">V-Code</label>
+      <input type="text" id="vcodeInput" placeholder="V-Code ထည့်ပါ" style="width:100%;padding:12px;border-radius:8px;border:1px solid #444;background:#2a2a2a;color:#fff;font-size:14px;">
+    </div>
+    
+    <button onclick="checkAuth()" style="background:linear-gradient(135deg, #ff6b6b, #ff8e53);color:white;border:none;padding:12px 24px;border-radius:50px;cursor:pointer;font-size:14px;font-weight:bold;width:100%;box-shadow:0 2px 8px rgba(255,107,107,0.4);">
+      <span>၀င်မည်</span>
+    </button>
+    
+    <p id="errorMsg" style="color:#ff6b6b;margin-top:15px;display:none;font-size:13px;">ကတ်နံပါတ် (သို့) V-Code မှားယွင်းနေပါသည်</p>
+    
+    <div style="margin-top:25px;padding-top:15px;border-top:1px solid #333;">
+      <p style="color:#ccc;font-size:13px;margin-bottom:5px;">ကတ်လိုချင်ပါက ဆက်သွယ်ရန်</p>
+      <a href="https://t.me/Starlar1" target="_blank" style="display:inline-flex;align-items:center;background:linear-gradient(135deg, #0088cc, #005580);color:white;padding:8px 15px;border-radius:50px;text-decoration:none;font-size:13px;margin-top:5px;">
+        <i class="fab fa-telegram-plane" style="margin-right:5px;"></i> 
+        <span>Telegram - @Starlar1</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+    
+  
+
+
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">
+            <img src="https://drive.google.com/thumbnail?id=1pSEEw_Y6ReVmX3tC4D9DyPeudgoC1JWF&sz=w1000" alt="King Icon" class="logo-icon">
+            <span>SCR </span>
+        </div>
+
+    </div>
+    
+<!-- Main Content -->
+<div class="container">
+<!-- Banner Section -->
+<div class="banner-container">
+    <div class="banner-slide active">
+        <img src="https://drive.google.com/thumbnail?id=1e2-jKuF5zHiWwF1itqnq5mWdya1GFeNo&sz=w1000" alt="Banner 1">
+    </div>
+    <div class="banner-slide">
+        <img src="https://drive.google.com/thumbnail?id=1G9IIKp1oovqYbRcsMwxNIQrmpr12oPf7&sz=w1000" alt="Banner 2">
+    </div>
+    <div class="banner-slide">
+        <img src="https://drive.google.com/thumbnail?id=1u7A4kYUCZatZTNFVsWmFseXs7-BYDmno&sz=w1000" alt="Banner 3">
+    </div>
+</div>
+    
+    <!-- Main Content -->
+    <div class="container">
+    
+        <div class="products-grid">
+            <!-- MLBB -->
+            <div class="product-card" data-game="MLBB" data-game-name="Mobile Legends">
+                <div class="product-price">HOT</div>
+                <div class="product-image">
+                    <img src="https://drive.google.com/thumbnail?id=1-ISMRwYDqa870h1SoiZfKwkurlA-QTrX&sz=w1000" alt="MLBB">
+                </div>
+                <div class="product-info">
+                    <div class="product-title">MLBB</div>
+                    <div class="product-subtitle">Myanmar Server</div>
+                </div>
+            </div>
+
+    <!-- MLBB2 -->
+<div class="product-card" data-game="MLBB_BAN" data-game-name="Mobile Legends Ban Server">
+    <div class="product-price">NEW</div>
+    <div class="product-image">
+        <img src="https://drive.google.com/thumbnail?id=1-ISMRwYDqa870h1SoiZfKwkurlA-QTrX&sz=w1000" alt="MLBB">
+    </div>
+    <div class="product-info">
+        <div class="product-title">Ban Server</div>
+        <div class="product-subtitle">တချား Server တွေအတွက် </div>
+    </div>
+</div>
+
+            <!-- MCGG -->
+            <div class="product-card" data-game="MCGG" data-game-name="MCGG">
+                <div class="product-price">NEW</div>
+                <div class="product-image">
+                    <img src="https://drive.google.com/thumbnail?id=10MgOBMAAZZB-yUTsl-DDWPFiCTYBlkay&sz=w1000" alt="MCGG">
+                </div>
+                <div class="product-info">
+                    <div class="product-title">MCGG</div>
+                    <div class="product-subtitle">Diamonds ၀ယ်ယူရန်</div>
+                </div>
+            </div>
+
+            <!-- PUBG -->
+            <div class="product-card" data-game="PUBG" data-game-name="PUBG Mobile">
+                <div class="product-price">NEW</div>
+                <div class="product-image">
+                    <img src="https://drive.google.com/thumbnail?id=1-TPvv8oGIQvGy1GV01BTN_xdD4Rx2xLs&sz=w1000" alt="PUBG">
+                </div>
+                <div class="product-info">
+                    <div class="product-title">PUBG</div>
+                    <div class="product-subtitle">UC ၀ယ်ယူရန်</div>
+                </div>
+            </div>
+
+   
+
+         <!-- Telegram Premium -->
+<div class="product-card" data-game="TelegramPremium" data-game-name="Telegram Premium">
+    <div class="product-price">NEW</div>
+    <div class="product-image">
+        <img src="https://drive.google.com/thumbnail?id=1-maIyEvDaCc_fU_Djex68jNN9OVZaLIz&sz=w1000" alt="Telegram Premium">
+    </div>
+    <div class="product-info">
+        <div class="product-title">Premium</div>
+        <div class="product-subtitle">Telegram Premium</div>
+    </div>
+</div>
+
+        <!-- Telegram -->
+            <div class="product-card" data-game="Telegram" data-game-name="Telegram Boost">
+                <div class="product-price">NEW</div>
+                <div class="product-image">
+                    <img src="https://drive.google.com/thumbnail?id=10FawAavEAv2kHcHeBuhLSut1Q4LV4hQY&sz=w1000" alt="Telegram">
+                </div>
+                <div class="product-info">
+                    <div class="product-title">TG Boost</div>
+                    <div class="product-subtitle">Telegram Members</div>
+                </div>
+            </div>
+            
+            <!-- TG Star -->
+            <div class="product-card" data-game="TGStar" data-game-name="Telegram Star">
+                <div class="product-price">NEW</div>
+                <div class="product-image">
+                    <img src="https://drive.google.com/thumbnail?id=10Xdc9ihHcW24PGcOsspx3xfBrEQd1wx2&sz=w1000" alt="TG Star">
+                </div>
+                <div class="product-info">
+                    <div class="product-title">TG Star</div>
+                    <div class="product-subtitle">Telegram Stars</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <!-- Package Selection Screen -->
+    <div id="packageScreen" class="package-screen">
+        <div class="package-header">
+            <h2 class="package-title" id="packageTitle">MLBB Packages</h2>
+            <button class="back-btn" onclick="hidePackageScreen()">
+                <i class="fas fa-arrow-left"></i>
+                <span>နောက်သို့</span>
+            </button>
+        </div>
+        
+        <div class="packages-grid" id="packagesGrid">
+            <!-- Packages will be dynamically added here -->
+        </div>
+    </div>
+    
+    <!-- Order Form Screen -->
+    <div id="orderScreen" class="order-screen">
+        <div class="order-content">
+            <div class="order-header">
+                <h2 class="order-title" id="orderTitle">MLBB အော်ဒါ</h2>
+                <button class="back-btn" onclick="hideOrderScreen()">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>နောက်သို့</span>
+                </button>
+            </div>
+            
+<!-- Payment Methods Bar -->
+<div class="payment-bar">
+    <div class="payment-method">
+        <i class="fas fa-mobile-alt"></i>
+        <span>Wave - 09966744881 ( Lwin Moe Aung )</span>
+    </div>
+    <div class="payment-method">
+        <i class="fas fa-mobile-alt"></i>
+        <span>KPay - 09677007906 ( Daw Mya San Yee )</span>
+    </div>
+</div>
+
+            <div class="form-container">
+                <div id="mlbbForm">
+                    <div class="form-group">
+                        <label class="form-label">Game ID</label>
+                        <input type="text" class="form-input" id="mlbbGameId" placeholder="သင့် Game ID ထည့်ပါ">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Server ID</label>
+                        <input type="text" class="form-input" id="mlbbServerId" placeholder="သင့် Server ID ထည့်ပါ">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">ငွေလွှဲအတည်ပြုချက်ဓာတ်ပုံ</label>
+                        <div class="file-upload" id="mlbbUpload">
+                            <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                            <p class="upload-text">ဓာတ်ပုံထည့်ရန် နှိပ်ပါ</p>
+                            <p class="upload-text" style="font-size: 11px; color: #888;"></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="pubgForm" style="display: none;">
+                    <div class="form-group">
+                        <label class="form-label">Game ID</label>
+                        <input type="text" class="form-input" id="pubgGameId" placeholder="သင့် PUBG ID ထည့်ပါ">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">ငွေလွှဲအတည်ပြုချက်ဓာတ်ပုံ</label>
+                        <div class="file-upload" id="pubgUpload">
+                            <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                            <p class="upload-text">ဓာတ်ပုံထည့်ရန် နှိပ်ပါ</p>
+                            <p class="upload-text" style="font-size: 11px; color: #888;"></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="mcggForm" style="display: none;">
+                    <div class="form-group">
+                        <label class="form-label">Game ID</label>
+                        <input type="text" class="form-input" id="mcggGameId" placeholder="သင့် Game ID ထည့်ပါ">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Server ID</label>
+                        <input type="text" class="form-input" id="mcggServerId" placeholder="သင့် Server ID ထည့်ပါ">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">ငွေလွှဲအတည်ပြုချက်ဓာတ်ပုံ</label>
+                        <div class="file-upload" id="mcggUpload">
+                            <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                            <p class="upload-text">ဓာတ်ပုံထည့်ရန် နှိပ်ပါ</p>
+                            <p class="upload-text" style="font-size: 11px; color: #888;"></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="telegramForm" style="display: none;">
+                    <div class="form-group">
+                        <label class="form-label">Username</label>
+                        <input type="text" class="form-input" id="telegramUsername" placeholder="သင့် Telegram Account Username ထည့်ပါ">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">ငွေလွှဲအတည်ပြုချက်ဓာတ်ပုံ</label>
+                        <div class="file-upload" id="telegramUpload">
+                            <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                            <p class="upload-text">ဓာတ်ပုံထည့်ရန် နှိပ်ပါ</p>
+                            <p class="upload-text" style="font-size: 11px; color: #888;"></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="telegrampremiumForm" style="display: none;">
+    <div class="form-group">
+        <label class="form-label">Username</label>
+        <input type="text" class="form-input" id="telegrampremiumUsername" placeholder="သင့် Telegram Account Username ထည့်ပါ">
+    </div>
+    <div class="form-group">
+        <label class="form-label">ငွေလွှဲအတည်ပြုချက်ဓာတ်ပုံ</label>
+        <div class="file-upload" id="telegrampremiumUpload">
+            <i class="fas fa-cloud-upload-alt upload-icon"></i>
+            <p class="upload-text">ဓာတ်ပုံထည့်ရန် နှိပ်ပါ</p>
+            <p class="upload-text" style="font-size: 11px; color: #888;"></p>
+        </div>
+    </div>
+</div>
+
+                <div id="tgstarForm" style="display: none;">
+                    <div class="form-group">
+                        <label class="form-label">Username</label>
+                        <input type="text" class="form-input" id="tgstarUsername" placeholder="သင့် Telegram Account Username ထည့်ပါ">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">ငွေလွှဲအတည်ပြုချက်ဓာတ်ပုံ</label>
+                        <div class="file-upload" id="tgstarUpload">
+                            <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                            <p class="upload-text">ဓာတ်ပုံထည့်ရန် နှိပ်ပါ</p>
+                            <p class="upload-text" style="font-size: 11px; color: #888;"></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="submit-btn" onclick="submitOrder()">
+                    <span>အော်ဒါတင်မည်</span>
+                </button>
+                
+                <div class="loading" id="loading">
+                    <div class="loading-spinner"></div>
+                    <p></p>
+                </div>
+                
+                <div class="success-message" id="successMessage">
+                    <i class="fas fa-check-circle success-icon"></i>
+                    <h2>အော်ဒါတင်ခြင်း အောင်မြင်ပါသည်!</h2>
+                    
+           
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+<!-- Bottom Navigation -->
+<div class="bottom-nav">
+    <a href="#" class="nav-item active" onclick="showScreen('homeScreen', this)">
+        <i class="fas fa-home nav-icon"></i>
+        <span>ပင်မစင်တာ</span>
+    </a>
+    <a href="#" class="nav-item" onclick="showOrders()">
+        <i class="fas fa-shopping-cart nav-icon"></i>
+        <span>အော်ဒါများ</span>
+    </a>
+    <a href="#" class="nav-item" onclick="showFaqScreen()">
+        <i class="fas fa-question-circle nav-icon"></i>
+        <span>အကူအညီ</span>
+    </a>
+
+</div>
+
+<!-- Orders Screen -->
+<div id="ordersScreen" class="package-screen">
+    <div class="package-header">
+        <h2 class="package-title"> အော်ဒါမှတ်တမ်း</h2>
+        <button class="back-btn" onclick="hideOrders()">
+            <i class="fas fa-arrow-left"></i>
+            <span>နောက်သို့</span>
+        </button>
+    </div>
+    <div id="ordersList">
+        <!-- Orders will show here dynamically -->
+    </div>
+</div>
+
+<!-- FAQ Screen -->
+<div id="faqScreen" class="package-screen">
+    <div class="package-header">
+        <h2 class="package-title">❓ သိထားစရာများ နှင့် အကူအညီ</h2>
+        <button class="back-btn" onclick="hideFaqScreen()">
+            <i class="fas fa-arrow-left"></i>
+            <span>နောက်သို့</span>
+        </button>
+    </div>
+    
+    <div style="padding: 15px;">
+        <div class="faq-item" style="margin-bottom: 20px; background: rgba(30,30,30,0.7); padding: 15px; border-radius: 10px; border-left: 4px solid #ff6b6b;">
+            <h3 style="color: #ff8e53; margin-bottom: 10px;">💎 Diamond မရောက်ခြင်း</h3>
+            <p style="color: #ccc; line-height: 1.6;">
+                Diamond မရောက်ခြင်းမှာ အော်ဒါတင်ထားတဲ့ Game ID သို့မဟုတ် Server ID မှားခြင်းတို့ကြောင့်ဖြစ်သည်။ 
+                အော်ဒါမှတ်တန်းတွင်စစ်ဆေးပါ။ အကုန်မှန်ပါသော်လည်း မရောက်ပါက 3 နာရီစောင့်ပေးပါ။ 
+                မရောက်ရှိသေးရင် အကြောင်းကြားပေးပါ။
+            </p>
+        </div>
+        
+        <div class="faq-item" style="margin-bottom: 20px; background: rgba(30,30,30,0.7); padding: 15px; border-radius: 10px; border-left: 4px solid #3498db;">
+    <h3 style="color: #3498db; margin-bottom: 10px;">⏱️ Buy Item မရောက်ခြင်း</h3>
+    <p style="color: #ccc; line-height: 1.6;">
+        ID, Server ID, Username မှန်သော်လည်း ၀ယ်ယူထားသောအရာသည် ၃ နာရီ အတွင်း မရပါက ဆက်သွယ်ပေးပါ။
+    </p>
+</div>
+
+
+        
+        <div class="faq-item" style="margin-bottom: 20px; background: rgba(30,30,30,0.7); padding: 15px; border-radius: 10px; border-left: 4px solid #e67e22;">
+    <h3 style="color: #e67e22; margin-bottom: 10px;">🆔 ID မှားခြင်း</h3>
+    <p style="color: #ccc; line-height: 1.6;">
+        ID မှားထားပါက နောက်တစ်ကြိမ် အော်ဒါတင်ပေးရပါမည်။ 
+        တစ်ရက်ကြာမှတင်ရင် မရပါ။
+    </p>
+</div>
+
+        <div class="faq-item" style="margin-bottom: 20px; background: rgba(30,30,30,0.7); padding: 15px; border-radius: 10px; border-left: 4px solid #ffcc00;">
+    <h3 style="color: #ffcc00; margin-bottom: 10px;">🚫 Ban Server</h3>
+    <p style="color: #ccc; line-height: 1.6;">
+        Ban Server ကနေ ထည့်မဲ့သူများသည် Game အကောင့်ဖွင့်ခဲ့တုန်းက VPN အသုံးပြုခဲ့လို့တချား Server အကောင့်ဖြစ်သွားတာပါ။ 
+        အဲ့လို ဘယ်Server မဆို Ban Server ကနေ ၀ယ်ယူပေးပါ။
+    </p>
+</div>
+
+<div class="faq-item" style="margin-bottom: 20px; background: rgba(30,30,30,0.7); padding: 15px; border-radius: 10px; border-left: 4px solid #9b59b6;">
+    <h3 style="color: #9b59b6; margin-bottom: 10px;">📦 Telegram Item ၀ယ်ယူချင်း</h3>
+    <p style="color: #ccc; line-height: 1.6;">
+        Telegram နဲ့ဆိုင်သော အရာများ ၀ယ်ယူပါက Account Username ကို သေချာထည့်ပါ။ 
+        မထည့်ထားပါက ၀ယ်ယူထားသောအရာ ရောက်ရှိမည်မဟုတ်ပါ။ ၀ယ်ယူထားသောအရာ မရောက်ရှိသေးပဲ Username ပြောင်းလဲခြင်း မလုပ်ပါနှင့်။
+    </p>
+</div>
+
+        <div class="faq-item" style="margin-bottom: 20px; background: rgba(30,30,30,0.7); padding: 15px; border-radius: 10px; border-left: 4px solid #4da6ff;">
+            <h3 style="color: #4da6ff; margin-bottom: 10px;">🔗 Official Channel</h3>
+            <p style="color: #ccc; line-height: 1.6; margin-bottom: 15px;">
+                ကျွန်ုပ်တို့၏ တရားဝင် Channel
+            </p>
+            <a href="https://t.me/StarlarCompany" target="_blank" style="display: block; background: linear-gradient(135deg, #0088cc, #005580); color: white; padding: 12px; border-radius: 8px; text-decoration: none; text-align: center; font-weight: bold;">
+                <i class="fab fa-telegram-plane"></i> Starlar Company Official Channel
+            </a>
+        </div>
+        
+        <div class="faq-item" style="margin-bottom: 20px; background: rgba(30,30,30,0.7); padding: 15px; border-radius: 10px; border-left: 4px solid #4CAF50;">
+            <h3 style="color: #4CAF50; margin-bottom: 10px;">📞 ဆက်သွယ်ရန်</h3>
+            <p style="color: #ccc; line-height: 1.6;">
+                အကူအညီလိုအပ်ပါက အောက်ပါလင့်မှတစ်ဆင့် ဆက်သွယ်နိုင်ပါသည်:
+            </p>
+            <a href="https://t.me/StarlarCompany" target="_blank" style="display: block; background: linear-gradient(135deg, #ff6b6b, #ff8e53); color: white; padding: 12px; border-radius: 8px; text-decoration: none; text-align: center; font-weight: bold; margin-top: 10px;">
+                <i class="fab fa-telegram-plane"></i> SCR Support on Telegram
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Firebase App (core Firebase SDK) -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+
+<!-- Firebase Realtime Database -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+
+<!-- Firebase Analytics -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-analytics-compat.js"></script>
+
+<script>
+  // Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyAU0Nt-xQYbmowxsZA7tZkomkszv6PKK0",
+    authDomain: "scs-shop-566c1.firebaseapp.com",
+    databaseURL: "https://scs-shop-566c1-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "scs-shop-566c1",
+    storageBucket: "scs-shop-566c1.appspot.com",
+    messagingSenderId: "1014883172523",
+    appId: "1:1014883172523:web:c5926ccea45047420db7ee",
+    measurementId: "G-XXXXXXXXXX"
+  };
+
+
+// Valid card and vcode combinations
+const validCredentials = [
+  { card: '5555555555', vcode: 'Starlar' },
+  { card: '5146669890', vcode: 'OT134' },
+  { card: '5132220009', vcode: 'GH8K1' },
+  { card: '6663450981', vcode: 'MM57Y' }
+];
+
+// Authentication check function
+function checkAuth() {
+  const cardInput = document.getElementById('cardInput').value;
+  const vcodeInput = document.getElementById('vcodeInput').value;
+  const errorMsg = document.getElementById('errorMsg');
+  
+  // Check if inputs match any valid combination
+  const isValid = validCredentials.some(cred => 
+    cred.card === cardInput && cred.vcode === vcodeInput
+  );
+  
+  if (isValid) {
+    // Hide authentication overlay
+    document.getElementById('authOverlay').style.display = 'none';
+    
+    // Set a flag in localStorage to remember the authentication
+    localStorage.setItem('scsAuthenticated', 'true');
+  } else {
+    // Show error message
+    errorMsg.style.display = 'block';
+    
+    // Hide error message after 3 seconds
+    setTimeout(() => {
+      errorMsg.style.display = 'none';
+    }, 3000);
+  }
+}
+
+// Check if already authenticated
+window.addEventListener('DOMContentLoaded', function() {
+  const isAuthenticated = localStorage.getItem('scsAuthenticated');
+  
+  if (isAuthenticated === 'true') {
+    document.getElementById('authOverlay').style.display = 'none';
+  }
+});
+
+    // Package data
+const packages = {
+    'MLBB': [
+        // 💎 Diamonds များ
+        { price: '950 KS', desc: '11 Diamonds' },
+        { price: '1900 KS', desc: '22 Diamonds' },
+        { price: '2700 KS', desc: '33 Diamonds' },
+        { price: '3700 KS', desc: '44 Diamonds' },
+        { price: '4300 KS', desc: '56 Diamonds' },
+        { price: '5,300 KS', desc: '86 Diamonds' },
+        { price: '8,000 KS', desc: '112 Diamonds' },
+        { price: '10,000 KS', desc: '172 Diamonds' },
+        { price: '15,000 KS', desc: '257 Diamonds' },
+        { price: '19,800 KS', desc: '343 Diamonds' },
+        { price: '24,700 KS', desc: '429 Diamonds' },
+        { price: '29,500 KS', desc: '514 Diamonds' },
+        { price: '35,100 KS', desc: '600 Diamonds' },
+        { price: '40,600 KS', desc: '706 Diamonds' },
+        { price: '49,900 KS', desc: '878 Diamonds' },
+        { price: '54,700 KS', desc: '963 Diamonds' },
+        { price: '59,900 KS', desc: '1049 Diamonds' },
+        { price: '66,000 KS', desc: '1135 Diamonds' },
+        { price: '80,000 KS', desc: '1412 Diamonds' },
+        { price: '126,000 KS', desc: '2195 Diamonds' },
+        { price: '208,000 KS', desc: '3688 Diamonds' },
+        { price: '306,000 KS', desc: '5532 Diamonds' },
+        { price: '498,000 KS', desc: '9288 Diamonds' },
+
+        // ✨ 2X Diamonds များ
+        { price: '3,500 KS', desc: '2X 50+50 Diamonds' },
+        { price: '9,800 KS', desc: '2X 150+150 Diamonds' },
+        { price: '15,700 KS', desc: '2X 250+250 Diamonds' },
+        { price: '31,700 KS', desc: '2X 500+500 Diamonds' },
+
+        // 🎫 Pass များ
+        { price: '6,200 KS', desc: 'PASS Weekly Pass' },
+        { price: '32,900 KS', desc: 'PASS Twilight Pass' }
+    ],
+
+    'MLBB_BAN': [
+        // 💎 Diamonds များ
+        { price: '8,800 KS', desc: 'Weekly Pass' },
+        { price: '1,300 KS', desc: '14 Diamonds' },
+        { price: '2,500 KS', desc: '28 Diamonds' },
+        { price: '3,500 KS', desc: '42 Diamonds' },
+        { price: '5,400 KS', desc: '70 Diamonds' },
+        { price: '6,600 KS', desc: '84 Diamonds' },
+        { price: '10,800 KS', desc: '140 Diamonds' },
+        { price: '16,300 KS', desc: '210 Diamonds' },
+        { price: '22,200 KS', desc: '284 Diamonds (MLY)' },
+        { price: '27,400 KS', desc: '355 Diamonds' },
+        { price: '32,300 KS', desc: '429 Diamonds' },
+        { price: '53,500 KS', desc: '716 Diamonds (MLY)' },
+        { price: '106,000 KS', desc: '1446 Diamonds' },
+        { price: '121,000 KS', desc: '1586 Diamonds' },
+        { price: '208,500 KS', desc: '2976 Diamonds' },
+        { price: '226,000 KS', desc: '3032 Diamonds' },
+        { price: '312,000 KS', desc: '4047 Diamonds' },
+        { price: '527,000 KS', desc: '7502 Diamonds' },
+
+        // ✨ 2X Diamonds များ
+        { price: '4,500 KS', desc: '2X 50+50 Diamonds' },
+        { price: '13,300 KS', desc: '2X 150+150 Diamonds' },
+        { price: '21,700 KS', desc: '2X 250+250 Diamonds' },
+        { price: '43,500 KS', desc: '2X 500+500 Diamonds' }
+    ],
+
+'PUBG': [
+    // 💸 UC Packages
+    { price: '4,100 KS', desc: '60 UC' },
+    { price: '8,000 KS', desc: '120 UC' },
+    { price: '11,900 KS', desc: '180 UC' },
+    { price: '15,800 KS', desc: '240 UC' },
+    { price: '19,400 KS', desc: '325 UC' },
+    { price: '23,300 KS', desc: '385 UC' },
+    { price: '38,500 KS', desc: '660 UC' },
+    { price: '42,500 KS', desc: '720 UC' },
+    { price: '76,300 KS', desc: '1320 UC' },
+    { price: '94,800 KS', desc: '1800 UC' },
+    { price: '188,800 KS', desc: '3850 UC' },
+    { price: '377,300 KS', desc: '8100 UC' },
+
+    // 🤩 Special Packs
+    { price: '14,700 KS', desc: 'Material Pack' },
+    { price: '5,400 KS', desc: 'First Purchase Pack' },
+    { price: '22,400 KS', desc: 'Mythic Emblem Pack' },
+
+    // ✨ Prime
+    { price: '5,400 KS', desc: 'Prime 1 Month' },
+    { price: '15,800 KS', desc: 'Prime 3 Months' },
+    { price: '31,600 KS', desc: 'Prime 6 Months' },
+    { price: '63,000 KS', desc: 'Prime 12 Months' },
+
+    // ✨ Prime Plus
+    { price: '42,400 KS', desc: 'Prime Plus 1 Month' },
+    { price: '126,400 KS', desc: 'Prime Plus 3 Months' },
+    { price: '251,500 KS', desc: 'Prime Plus 6 Months' },
+    { price: '500,500 KS', desc: 'Prime Plus 12 Months' },
+
+    // 🪙 Red Crystal
+    { price: '15,500 KS', desc: 'Red Crystal' }
+],
+
+'MCGG': [
+    { price: '8,100 KS', desc: 'Weekly Pass' },
+
+    { price: '3,500 KS', desc: '50+ Diamonds' },
+    { price: '10,300 KS', desc: '150+ Diamonds' },
+    { price: '16,800 KS', desc: '250+ Diamonds' },
+    { price: '33,800 KS', desc: '500+ Diamonds' },
+
+    { price: '5,300 KS', desc: '86 Diamonds' },
+    { price: '10,300 KS', desc: '172 Diamonds' },
+    { price: '15,300 KS', desc: '257 Diamonds' },
+    { price: '20,500 KS', desc: '344 Diamonds' },
+    { price: '25,600 KS', desc: '429 Diamonds' },
+    { price: '30,700 KS', desc: '516 Diamonds' },
+    { price: '35,750 KS', desc: '600 Diamonds' },
+    { price: '40,750 KS', desc: '706 Diamonds' },
+    { price: '46,000 KS', desc: '792 Diamonds' },
+    { price: '51,200 KS', desc: '878 Diamonds' },
+    { price: '55,850 KS', desc: '963 Diamonds' },
+    { price: '61,200 KS', desc: '1049 Diamonds' },
+    { price: '81,300 KS', desc: '1412 Diamonds' },
+    { price: '123,000 KS', desc: '2195 Diamonds' },
+    { price: '204,000 KS', desc: '3688 Diamonds' },
+    { price: '305,000 KS', desc: '5532 Diamonds' },
+    { price: '507,000 KS', desc: '9288 Diamonds' }
+],
+
+    'Telegram': [
+        { price: '8000 KS', desc: '1000 SUB 1 လ' },
+        { price: '16000 KS', desc: '1000 SUB 1 သက်စာ' },
+        { price: '2700 KS', desc: 'REC 1K' },
+        { price: '1500 KS', desc: 'Views 1K' }
+    ],
+
+'TelegramPremium': [
+    { price: '49,000 KS', desc: '3 Months Premium' },
+    { price: '66,000 KS', desc: '6 Months Premium' },
+    { price: '112,000 KS', desc: '12 Months Premium' }
+],
+
+'TGStar': [
+    { price: '3,900 KS', desc: '50 Stars' },
+    { price: '7,800 KS', desc: '100 Stars' },
+    { price: '11,600 KS', desc: '150 Stars' },
+    { price: '15,600 KS', desc: '200 Stars' },
+    { price: '23,200 KS', desc: '300 Stars' },
+    { price: '38,200 KS', desc: '500 Stars' },
+    { price: '76,500 KS', desc: '1000 Stars' }
+],
+};
+    
+
+// Current selected product
+let currentProduct = '';
+let currentPackage = '';
+let uploadedFiles = {};
+
+// Add click event to product cards
+document.querySelectorAll('.product-card').forEach(card => {
+    card.addEventListener('click', function() {
+        currentProduct = this.dataset.game;
+        const gameName = this.dataset.gameName;
+        showPackageScreen(currentProduct, gameName);
+    });
+});
+
+// Show package selection screen
+function showPackageScreen(product, gameName) {
+    currentProduct = product;
+    const packageScreen = document.getElementById('packageScreen');
+    const packageTitle = document.getElementById('packageTitle');
+    const packagesGrid = document.getElementById('packagesGrid');
+
+    // Set title
+    packageTitle.textContent = gameName + ' Packages';
+
+    // Clear previous packages
+    packagesGrid.innerHTML = '';
+
+    // Add packages
+    if (packages[product]) {
+        packages[product].forEach(pkg => {
+            const packageCard = document.createElement('div');
+            packageCard.className = 'package-card';
+            packageCard.innerHTML = `
+                <div class="package-price">${pkg.price}</div>
+                <div class="package-desc">${pkg.desc}</div>
+            `;
+            packageCard.addEventListener('click', () => showOrderScreen(product, gameName, pkg));
+            packagesGrid.appendChild(packageCard);
+        });
+    }
+
+    // Show the screen
+    packageScreen.style.display = 'flex';
+}
+
+// Hide package selection screen
+function hidePackageScreen() {
+    document.getElementById('packageScreen').style.display = 'none';
+}
+
+// Show order form screen
+function showOrderScreen(product, gameName, packageInfo) {
+    currentProduct = product;
+    currentPackage = packageInfo;
+    const orderScreen = document.getElementById('orderScreen');
+    const orderTitle = document.getElementById('orderTitle');
+
+    // Set title
+    orderTitle.textContent = gameName + ' - ' + packageInfo.desc;
+
+    // Hide all forms first
+    document.getElementById('mlbbForm').style.display = 'none';
+    document.getElementById('pubgForm').style.display = 'none';
+    document.getElementById('mcggForm').style.display = 'none';
+    document.getElementById('telegramForm').style.display = 'none';
+    document.getElementById('tgstarForm').style.display = 'none';
+    document.getElementById('telegrampremiumForm').style.display = 'none'; // ✅ Premium hide first
+
+    // Show the appropriate form
+    if (product === 'MLBB' || product === 'MLBB_BAN') {
+        document.getElementById('mlbbForm').style.display = 'block';
+    } else if (product === 'PUBG') {
+        document.getElementById('pubgForm').style.display = 'block';
+    } else if (product === 'MCGG') {
+        document.getElementById('mcggForm').style.display = 'block';
+    } else if (product === 'Telegram') {
+        document.getElementById('telegramForm').style.display = 'block';
+    } else if (product === 'TGStar') {
+        document.getElementById('tgstarForm').style.display = 'block';
+    } else if (product === 'TelegramPremium') {
+        document.getElementById('telegrampremiumForm').style.display = 'block'; // ✅ Premium form show
+    }
+
+    // Show the screen
+    orderScreen.style.display = 'flex';
+}
+
+// Hide order form screen
+function hideOrderScreen() {
+    document.getElementById('orderScreen').style.display = 'none';
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('successMessage').style.display = 'none';
+}
+
+// Submit order
+function submitOrder() {
+    const loading = document.getElementById('loading');
+    const successMessage = document.getElementById('successMessage');
+
+    // Validate form
+    let isValid = true;
+    let formData = {
+        product: currentProduct,
+        package: currentPackage
+    };
+
+    if (currentProduct === 'MLBB' || currentProduct === 'MLBB_BAN') {
+        const gameId = document.getElementById('mlbbGameId').value;
+        const serverId = document.getElementById('mlbbServerId').value;
+
+        if (!gameId || !serverId) {
+            alert('Game ID နှင့် Server ID ထည့်သွင်းရန် လိုအပ်ပါသည်');
+            isValid = false;
+        } else {
+            formData.gameId = gameId;
+            formData.serverId = serverId;
+        }
+    } else if (currentProduct === 'PUBG') {
+        const gameId = document.getElementById('pubgGameId').value;
+
+        if (!gameId) {
+            alert('Game ID ထည့်သွင်းရန် လိုအပ်ပါသည်');
+            isValid = false;
+        } else {
+            formData.gameId = gameId;
+        }
+    } else if (currentProduct === 'MCGG') {
+        const gameId = document.getElementById('mcggGameId').value;
+        const serverId = document.getElementById('mcggServerId').value;
+
+        if (!gameId || !serverId) {
+            alert('Game ID နှင့် Server ID ထည့်သွင်းရန် လိုအပ်ပါသည်');
+            isValid = false;
+        } else {
+            formData.gameId = gameId;
+            formData.serverId = serverId;
+        }
+    } else if (currentProduct === 'Telegram' || currentProduct === 'TGStar' || currentProduct === 'TelegramPremium') {
+        const username = document.getElementById(
+            currentProduct === 'Telegram' ? 'telegramUsername' :
+            currentProduct === 'TGStar' ? 'tgstarUsername' :
+            'telegrampremiumUsername'
+        ).value;
+
+        if (!username) {
+            alert('Username ထည့်သွင်းရန် လိုအပ်ပါသည်');
+            isValid = false;
+        } else {
+            formData.username = username;
+        }
+    }
+
+    if (!isValid) return;
+
+    // ✅ Save order record
+    orders.push({
+        product: formData.product,
+        package: formData.package.desc + " (" + formData.package.price + ")",
+        gameId: formData.gameId || '-',
+        serverId: formData.serverId || '-',
+        username: formData.username || '-',
+        time: new Date().toLocaleString()
+    });
+
+    // ✅ Update Orders List
+    updateOrdersTable();
+
+    // Show loading
+    loading.style.display = 'block';
+
+    // Send to Telegram
+    sendToTelegram(formData);
+}
+
+// Send order to Telegram
+function sendToTelegram(formData) {
+    const botToken = '8094270595:AAERziCUrOYf38DMOSReu1oOSEf2LLG_qS0';
+    const chatId = '@scsrorder';
+
+    // Create Telegram message
+    let message = `🛒 New Order Received!\n\n`;
+    message += `Product: ${formData.product}\n`;
+    message += `Package: ${formData.package.desc} (${formData.package.price})\n`;
+
+    if (formData.gameId) {
+        message += `Game ID: ${formData.gameId}\n`;
+    }
+    if (formData.serverId) {
+        message += `Server ID: ${formData.serverId}\n`;
+    }
+    if (formData.username) {
+        message += `Username: ${formData.username}\n`;
+    }
+
+    message += `\nTime: ${new Date().toLocaleString()}`;
+
+    // ထည့်ထားတဲ့ ဓာတ်ပုံ ရှာမယ်
+    let photoFile = null;
+    if ((formData.product === "MLBB" || formData.product === "MLBB_BAN") && uploadedFiles["mlbbUpload"]) {
+        photoFile = uploadedFiles["mlbbUpload"];
+    } else if (formData.product === "PUBG" && uploadedFiles["pubgUpload"]) {
+        photoFile = uploadedFiles["pubgUpload"];
+    } else if (formData.product === "MCGG" && uploadedFiles["mcggUpload"]) {
+        photoFile = uploadedFiles["mcggUpload"];
+    } else if (formData.product === "Telegram" && uploadedFiles["telegramUpload"]) {
+        photoFile = uploadedFiles["telegramUpload"];
+    } else if (formData.product === "TGStar" && uploadedFiles["tgstarUpload"]) {
+        photoFile = uploadedFiles["tgstarUpload"];
+    } else if (formData.product === "TelegramPremium" && uploadedFiles["telegrampremiumUpload"]) {
+        photoFile = uploadedFiles["telegrampremiumUpload"];
+    }
+
+    // ပုံရှိရင် sendPhoto သုံးမယ်
+    if (photoFile) {
+        const tgData = new FormData();
+        tgData.append("chat_id", chatId);
+        tgData.append("caption", message);
+        tgData.append("photo", photoFile);
+
+        fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
+            method: "POST",
+            body: tgData
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.ok) {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('successMessage').style.display = 'block';
+                setTimeout(() => hideOrderScreen(), 5000);
+            } else {
+                throw new Error('Failed to send to Telegram');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Telegram ပို့ရာတွင် အမှားဖြစ်နေပါသည်။');
+            document.getElementById('loading').style.display = 'none';
+        });
+
+    } else {
+        // ပုံမရှိရင် text message ပဲပို့မယ်
+        fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                chat_id: chatId,
+                text: message,
+                parse_mode: 'HTML'
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.ok) {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('successMessage').style.display = 'block';
+                setTimeout(() => hideOrderScreen(), 5000);
+            } else {
+                throw new Error('Failed to send to Telegram');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Telegram ပို့ရာတွင် အမှားဖြစ်နေပါသည်။');
+            document.getElementById('loading').style.display = 'none';
+        });
+    }
+}
+
+// Initialize file upload
+document.querySelectorAll('.file-upload').forEach(upload => {
+    upload.addEventListener('click', function() {
+        const fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.accept = 'image/*';
+
+        fileInput.addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                const file = this.files[0];
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('ဓာတ်ပုံအရွယ်အစားသည် 5MB ထက်ကျော်လွန်နေပါသည်');
+                    return;
+                }
+
+                // Store file for later use
+                uploadedFiles[upload.id] = file;
+
+                // Update UI to show file is selected
+                upload.innerHTML = `
+                    <i class="fas fa-check-circle upload-icon" style="color: #4CAF50;"></i>
+                    <p class="upload-text">${file.name}</p>
+                    <p class="upload-text" style="font-size: 11px; color: #888;">ဓာတ်ပုံပြောင်းလိုပါက နှိပ်ပါ</p>
+                `;
+            }
+        });
+
+        fileInput.click();
+    });
+});
+
+// Store orders
+let orders = [];
+
+// Update orders list (Dark Card style with Date + Time)
+function updateOrdersTable() {
+    const list = document.getElementById("ordersList");
+    if (!list) return;
+    list.innerHTML = "";
+
+    if (orders.length === 0) {
+        list.innerHTML = `<p style="text-align:center; color:#888;">📭 အော်ဒါမှတ်တမ်း မရှိသေးပါ</p>`;
+        return;
+    }
+
+    orders.forEach(order => {
+        // ✅ order.time ကို Date object အဖြစ်ထားမယ်
+        const timeValue = order.time instanceof Date ? order.time : new Date(order.time);
+        const orderTime = timeValue.toLocaleString("en-US", {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+            hour: "numeric",
+            minute: "2-digit",
+            hour12: true
+        });
+
+        const card = document.createElement("div");
+        card.style.background = "linear-gradient(145deg,#1e1e1e,#2a2a2a)";
+        card.style.padding = "15px";
+        card.style.borderRadius = "12px";
+        card.style.boxShadow = "0 4px 12px rgba(0,0,0,0.6)";
+        card.style.border = "1px solid #333";
+        card.style.marginBottom = "10px";
+
+        card.innerHTML = `
+    <strong style="font-size:15px; color:#4da6ff;">${order.package}</strong>
+    ${order.gameId && order.gameId !== '-' ? `<p style="margin:3px 0; color:#fff;">ဂိမ်း ID: ${order.gameId}</p>` : ''}
+    ${order.serverId && order.serverId !== '-' ? `<p style="margin:3px 0; color:#fff;">ဆာဗာ ID: ${order.serverId}</p>` : ''}
+    ${order.username && order.username !== '-' ? `<p style="margin:3px 0; color:#fff;">Username: ${order.username}</p>` : ''}
+    <p style="margin-top:8px; font-size:12px; color:#fff; text-align:right;">📅 ${orderTime}</p>
+        `;
+        list.appendChild(card);
+    });
+}
+
+// Show Orders screen (new screen popup style)
+function showOrders() {
+    document.getElementById("ordersScreen").style.display = "flex";
+    updateOrdersTable();
+}
+
+// Hide Orders screen
+function hideOrders() {
+    document.getElementById("ordersScreen").style.display = "none";
+}
+
+// ===============================
+// 🔹 LocalStorage Orders Save/Load
+// ===============================
+
+// Save current orders to localStorage
+function saveOrdersToStorage() {
+    localStorage.setItem('orders', JSON.stringify(orders));
+}
+
+// Load orders from localStorage on page load
+function loadOrdersFromStorage() {
+    const storedOrders = localStorage.getItem('orders');
+    if (storedOrders) {
+        orders = JSON.parse(storedOrders);
+        // Date string ကို Date object ပြန်ပြောင်း
+        orders.forEach(order => {
+            order.time = new Date(order.time);
+        });
+        updateOrdersTable();
+    }
+}
+
+// Page load အချိန်မှာ load လုပ်
+window.addEventListener('DOMContentLoaded', loadOrdersFromStorage);
+
+// Submit အပြီး Orders save လုပ်
+const originalSubmitOrder = submitOrder;
+submitOrder = function() {
+    originalSubmitOrder();
+    saveOrdersToStorage();
+};
+
+// FAQ Screen functions
+function showFaqScreen() {
+    document.getElementById('faqScreen').style.display = 'flex';
+}
+
+function hideFaqScreen() {
+    document.getElementById('faqScreen').style.display = 'none';
+}
+
+        // Banner Auto Slide
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.banner-slide');
+            let currentSlide = 0;
+            
+            function showSlide(n) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                currentSlide = (n + slides.length) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }
+            
+            // Change slide every 4 seconds
+            setInterval(() => {
+                showSlide(currentSlide + 1);
+            }, 4000);
+        });
+        
+
+
+
+// Check if user is already logged in
+function checkLoginStatus() {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    if (isLoggedIn === 'true') {
+        document.getElementById("loginScreen").style.display = "none";
+        document.getElementById("homeScreen").style.display = "block";
+    }
+}
+
+
+</script>
+</body>
+</html>
